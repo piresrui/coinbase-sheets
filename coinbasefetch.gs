@@ -1,13 +1,14 @@
-
 /**
  * Returns price from coinbase
  *
- * @param {"currency_pair"} Currency Format is BASECURRENCY_EXCHANGECURRENCY (e.g. BTC-USD)
+ * @param {"currency_pair"} CoinbaseKey Format is BASECURRENCY_EXCHANGECURRENCY (e.g. BTC-USD)
  * @return The current price
  * @customfunction
  */
 function COINBASEFETCH(currency_pair) {
     
+    var currency_pair = currency_pair || "BTC-USD"
+  
     var data = {}
     let key = "CBF_" + currency_pair
     let cache = CacheService.getUserCache()
@@ -32,7 +33,7 @@ function COINBASEFETCH(currency_pair) {
             cache.put(CACHE_KEY, response.getContentText(), 90)
         }
 
-        return parseFloat(data["data"]["ammount"])
+        return parseFloat(data["data"]["amount"])
 
 
     } catch (error) {
