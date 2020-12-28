@@ -12,7 +12,7 @@ function COINBASEFETCH(currency_pair) {
     let key = "CBF_" + currency_pair
     let cache = CacheService.getUserCache()
 
-    var cached = cache.get(CACHE_KEY);
+    var cached = cache.get(key);
     if (cached && cached.length > 1) {
       data = JSON.parse(cached)
     }
