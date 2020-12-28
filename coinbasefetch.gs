@@ -1,7 +1,7 @@
 /**
  * Returns price from coinbase
  *
- * @param {"currency_pair"} CoinbaseKey Format is BASECURRENCY_EXCHANGECURRENCY (e.g. BTC-USD)
+ * @param {"currency_pair"} CoinbaseKey Format is BASECURRENCY-EXCHANGECURRENCY (e.g. BTC-USD)
  * @return The current price
  * @customfunction
  */
@@ -15,7 +15,9 @@ function COINBASEFETCH(currency_pair) {
 
     var cached = cache.get(key);
     if (cached && cached.length > 1) {
-      data = JSON.parse(cached)
+        data = JSON.parse(cached)
+
+        return parseFloat(data["data"]["amount"])
     }
 
     try {
@@ -23,7 +25,7 @@ function COINBASEFETCH(currency_pair) {
         let url = "https://api.coinbase.com/v2/prices/" + currency_pair + "/buy"
 
         let response = UrlFetchApp.fetch(url)            
-        data = data = JSON.parse(response.getContentText());
+        data = JSON.parse(response.getContentText());
         
         if( data["errors"] ) {
             throw new Error(data["errors"])
